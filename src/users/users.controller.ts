@@ -28,4 +28,10 @@ export class UsersController {
   login(@Request() req) {
     return { user: req.user, msg: 'Logged in' };
   }
+
+  @Get('/login-check')
+  @UseGuards(AuthenticatedGuard)
+  loginCheck(@Request() req) {
+    return req.user;
+  }
 }
