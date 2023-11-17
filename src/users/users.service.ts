@@ -23,7 +23,22 @@ export class UsersService {
     return this.userModel.findOne({ ...filter });
   }
 
-  async create(createUserDto: CreateUserDto,
+  // Update
+  // async update(
+  //   updateUserDto: UpdateUserDto,
+  // ): Promise<User | { warningMessage: string }> {
+  //   const user = new User();
+  //   const existingById = await this.findOne({
+  //     where: { id: updateUserDto.id },
+  //   });
+  //
+  //   const hashedPassword = await bcrypt.hash(UpdateUserDto.password, 10);
+  //
+  //   return user.save();
+  // }
+
+  async create(
+    createUserDto: CreateUserDto,
   ): Promise<User | { warningMessage: string }> {
     const user = new User();
     const existingByEmail = await this.findOne({
