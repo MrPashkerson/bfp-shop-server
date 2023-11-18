@@ -12,9 +12,6 @@ export class User extends Model {
   hireDate: Date;
 
   @Column
-  username: string;
-
-  @Column
   email: string;
 
   @Column

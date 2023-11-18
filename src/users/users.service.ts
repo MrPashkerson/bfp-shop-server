@@ -14,7 +14,6 @@ export class UsersService {
   findOne(filter: {
     where: {
       id?: string;
-      username?: string;
       email?: string;
       name?: string;
       surname?: string;
@@ -59,7 +58,11 @@ export class UsersService {
       };
     }
 
-    if (existingBySurname && existingByName === existingBySurname) {
+    if (
+      existingBySurname &&
+      existingByName.surname === existingBySurname.surname &&
+      existingByName.name === existingBySurname.name
+    ) {
       return {
         warningMessage: 'Сотрудник с такой фамилией и именем уже существует',
       };
@@ -67,7 +70,7 @@ export class UsersService {
 
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
-    user.email = createUserDto.email;
+    user.email = createUserDto.email.toLowerCase();
     user.name = createUserDto.name;
     user.surname = createUserDto.surname;
     user.password = hashedPassword;
