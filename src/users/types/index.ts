@@ -11,13 +11,11 @@ export class LoginUserRequest {
 export class LoginUserResponse {
   @ApiProperty({
     example: {
-      user: {
-        userId: 1,
-        email: 'example@email.com',
-        name: 'Pavel',
-        surname: 'Homan',
-        hireDate: '2023-09-11T21:53:58.386Z',
-      },
+      userId: 1,
+      email: 'example@email.com',
+      name: 'Pavel',
+      surname: 'Homan',
+      hireDate: '2023-09-11T21:53:58.386Z',
     },
   })
   user: {
@@ -27,7 +25,6 @@ export class LoginUserResponse {
     surname: string;
     hireDate: string;
   };
-
   @ApiProperty({ example: 'Logged in' })
   msg: string;
 }
