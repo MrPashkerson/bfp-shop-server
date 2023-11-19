@@ -6,6 +6,9 @@ class Benefit {
   @ApiProperty({ example: 1 })
   id: number;
 
+  @ApiProperty({ example: faker.lorem.word() })
+  benefit_name: string;
+
   @ApiProperty({ example: faker.lorem.sentence(2) })
   benefit_category: string;
 
@@ -70,7 +73,7 @@ export class GetNewResponse extends PaginateAndFilterResponse {
 
 export class SearchByLetterResponse extends Benefit {
   @ApiProperty({ example: 'Provident incidunt.' })
-  name: string;
+  benefit_name: string;
 }
 
 export class SearchResponse extends PaginateAndFilterResponse {
@@ -85,12 +88,12 @@ export class SearchRequest {
 
 export class GetByNameResponse extends Benefit {
   @ApiProperty({ example: 'Provident incidunt.' })
-  name: string;
+  benefit_name: string;
 }
 
 export class GetByNameRequest {
   @ApiProperty({ example: 'Provident incidunt.' })
-  name: string;
+  benefit_name: string;
 }
 
 export class FindOneResponse extends Benefit {}

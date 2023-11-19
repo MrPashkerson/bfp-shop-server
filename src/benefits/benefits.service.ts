@@ -61,16 +61,16 @@ export class BenefitsService {
     });
   }
 
-  async findOneByName(name: string): Promise<Benefit> {
+  async findOneByName(benefit_name: string): Promise<Benefit> {
     return this.benefitModel.findOne({
-      where: { name },
+      where: { benefit_name },
     });
   }
 
   async searchByString(search: string): Promise<Benefit[]> {
     return this.benefitModel.findAll({
       where: {
-        name: {
+        benefit_name: {
           [Op.like]: `%${search}%`,
         },
       },

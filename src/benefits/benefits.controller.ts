@@ -65,7 +65,7 @@ export class BenefitsController {
   @ApiBody({ type: GetByNameRequest })
   @UseGuards(AuthenticatedGuard)
   @Post('name')
-  getByName(@Body() { name }: { name: string }) {
-    return this.benefitsService.findOneByName(name);
+  getByName(@Body() { benefit_name }: { benefit_name: string }) {
+    return this.benefitsService.findOneByName(benefit_name);
   }
 }
