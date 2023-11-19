@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "toor",
+    "database": "bfp_shop",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 9906
+  },
+  "test": {
+    "username": "root",
+    "password": "toor",
+    "database": "bfp_shop",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 9906
+  },
+  "production": {
+    "username": "root",
+    "password": "toor",
+    "database": "bfp_shop",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 9906
+  }
+}
