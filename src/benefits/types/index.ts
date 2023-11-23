@@ -18,6 +18,9 @@ class Benefit {
   @ApiProperty({ example: 12345 })
   price: string;
 
+  @ApiProperty({ example: faker.image.city() })
+  benefit_image: string;
+
   @ApiProperty({ example: true })
   in_stock: number;
 

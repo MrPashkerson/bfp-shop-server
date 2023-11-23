@@ -20,11 +20,8 @@ const benefitType = [
   'Other',
 ];
 const benefitImage = [
-  faker.image.fashion(),
   faker.image.food(),
   faker.image.nature(),
-  faker.image.nightlife(),
-  faker.image.people(),
   faker.image.sports(),
   faker.image.transport(),
 ];
