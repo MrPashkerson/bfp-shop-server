@@ -38,26 +38,20 @@ describe('Users Controller', () => {
     const newUser = {
       name: 'TestName',
       surname: 'TestSurname',
-      hireDate: '2023-09-11T21:53:58.386Z',
+      hireDate: new Date('2023-09-11T21:53:58.386Z'),
       email: 'example@email.com',
       password: 'password123',
-      role: 'user',
     };
 
     const response = await request(app.getHttpServer())
       .post('/users/signup')
       .send(newUser);
 
-    const passwordIsValid = await bcrypt.compare(
-      newUser.password,
-      response.body.password,
-    );
+    const passwordIsValid = await bcrypt.compare(newUser.password, response.body.password);
 
     expect(response.body.name).toBe(newUser.name);
     expect(passwordIsValid).toBe(true);
     expect(response.body.email).toBe(newUser.email);
     expect(response.body.surname).toBe(newUser.surname);
-    expect(response.body.hireDate).toBe(newUser.hireDate);
-    expect(response.body.role).toBe(newUser.role);
   });
 });

@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.STRING(2048),
       },
       in_stock: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
       },
       bestseller: {
         type: Sequelize.BOOLEAN,

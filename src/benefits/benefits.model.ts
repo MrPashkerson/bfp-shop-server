@@ -24,7 +24,7 @@ export class Benefit extends Model {
   benefit_image: string;
 
   @Column({ defaultValue: 0 })
-  in_stock: boolean;
+  in_stock: number;
 
   @Column({ defaultValue: 0 })
   bestseller: boolean;

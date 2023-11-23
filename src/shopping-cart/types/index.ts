@@ -17,7 +17,7 @@ class ShoppingCartItem {
   image: string;
 
   @ApiProperty({ example: 1 })
-  in_stock: boolean;
+  in_stock: number;
 
   @ApiProperty({ example: 'Subscription' })
   benefit_type: string;

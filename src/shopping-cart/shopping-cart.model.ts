@@ -23,8 +23,8 @@ export class ShoppingCart extends Model {
   @Column
   image: string;
 
-  @Column({ defaultValue: 0 })
-  in_stock: boolean;
+  @Column({ defaultValue: false })
+  in_stock: number;
 
   @Column({ defaultValue: 1 })
   count: number;

@@ -53,7 +53,7 @@ module.exports = {
           benefit_image: `${
             benefitImage[benefitImageIndex]
           }?random=${faker.random.numeric(30)}`,
-          in_stock: faker.datatype.boolean(),
+          in_stock: faker.random.numeric(1),
           bestseller: faker.datatype.boolean(),
           new: faker.datatype.boolean(),
           popularity: faker.random.numeric(3),

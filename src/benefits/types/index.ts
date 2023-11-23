@@ -19,7 +19,7 @@ class Benefit {
   price: string;
 
   @ApiProperty({ example: true })
-  in_stock: boolean;
+  in_stock: number;
 
   @ApiProperty({ example: true })
   bestseller: boolean;
@@ -112,5 +112,5 @@ export interface IBenefitFilter {
   };
   benefit_category: string | undefined;
   benefit_type: string | undefined;
-  in_stock: boolean | undefined;
+  in_stock: number | undefined;
 }
