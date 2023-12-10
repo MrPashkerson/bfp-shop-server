@@ -106,7 +106,10 @@ export interface IBenefitQuery {
   offset: string;
   priceFrom: string | undefined;
   priceTo: string | undefined;
-  benefit: string | undefined;
+  benefit_category: string | undefined;
+  benefit_type: string | undefined;
+  benefit_stock: string | undefined;
+  first: string | undefined;
 }
 
 export interface IBenefitFilter {

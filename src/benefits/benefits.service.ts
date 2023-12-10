@@ -17,29 +17,42 @@ export class BenefitsService {
     const limit = +query.limit;
     const offset = +query.offset * 20;
     const filter = {} as Partial<IBenefitFilter>;
-
+    console.log(query);
     if (query.priceFrom && query.priceTo) {
       filter.price = {
         [Op.between]: [+query.priceFrom, +query.priceTo],
       };
     }
 
-    if (query.benefit) {
-      filter.benefit_category = JSON.parse(decodeURIComponent(query.benefit));
+    let order = [];
+    if (query.first) {
+      const sortField = query.first.split('_')[0];
+      const sortOrder = query.first.split('_')[1];
+      order = [[sortField, sortOrder]];
     }
 
-    if (query.benefit) {
-      filter.benefit_type = JSON.parse(decodeURIComponent(query.benefit));
+    if (
+      query.benefit_category &&
+      decodeURIComponent(query.benefit_category) !== '[]'
+    ) {
+      filter.benefit_category = JSON.parse(
+        decodeURIComponent(query.benefit_category),
+      );
     }
 
-    if (query.benefit) {
-      filter.in_stock = JSON.parse(decodeURIComponent(query.benefit));
+    if (query.benefit_type && decodeURIComponent(query.benefit_type) !== '[]') {
+      filter.benefit_type = JSON.parse(decodeURIComponent(query.benefit_type));
+    }
+
+    if (query.benefit_stock) {
+      filter.in_stock = JSON.parse(decodeURIComponent(query.benefit_stock));
     }
 
     return this.benefitModel.findAndCountAll({
       limit,
       offset,
       where: filter,
+      order,
     });
   }
 

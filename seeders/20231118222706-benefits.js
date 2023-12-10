@@ -22,8 +22,6 @@ const benefitType = [
 const benefitImage = [
   faker.image.food(),
   faker.image.nature(),
-  faker.image.sports(),
-  faker.image.transport(),
 ];
 
 /** @type {import('sequelize-cli').Migration} */
