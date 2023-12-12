@@ -23,7 +23,9 @@ export class ShoppingCartService {
     const user = await this.usersService.findOne({
       where: { email: addToCartDto.email },
     });
-    const benefit = await this.benefitsService.findOne(addToCartDto.benefitId);
+    const benefit = await this.benefitsService.findOne({
+      where: { id: addToCartDto.benefitId },
+    });
 
     cart.userId = user.id;
     cart.benefitId = benefit.id;

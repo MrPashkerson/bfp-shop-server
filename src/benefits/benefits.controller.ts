@@ -1,9 +1,14 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Header,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -11,6 +16,7 @@ import { BenefitsService } from './benefits.service';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import {
+  CreateBenefitResponse,
   FindOneResponse,
   GetBestsellersResponse,
   GetByNameRequest,
@@ -20,10 +26,38 @@ import {
   SearchRequest,
   SearchResponse,
 } from './types';
+import { CreateBenefitDto } from 'src/benefits/dto/create-benefit.dto';
+import { UpdateBenefitDto } from 'src/benefits/dto/update-benefit.dto';
 
 @Controller('benefits')
 export class BenefitsController {
   constructor(private readonly benefitsService: BenefitsService) {}
+
+  @ApiOkResponse({ type: CreateBenefitResponse })
+  @Post('/create')
+  @HttpCode(HttpStatus.CREATED)
+  @Header('Content-type', 'application/json')
+  // @UseGuards(AuthenticatedGuard)
+  createBenefit(@Body() createBenefitDto: CreateBenefitDto) {
+    return this.benefitsService.create(createBenefitDto);
+  }
+
+  @ApiBody({ type: UpdateBenefitDto })
+  @ApiOkResponse({ description: 'Бенефит успешно обновлен' })
+  @Put('update/:id')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthenticatedGuard)
+  update(@Param('id') id: string, @Body() updateBenefitDto: UpdateBenefitDto) {
+    return this.benefitsService.update(id, updateBenefitDto);
+  }
+
+  @ApiOkResponse({ description: 'Бенефит удален' })
+  @UseGuards(AuthenticatedGuard)
+  @Delete('delete/:id')
+  @HttpCode(HttpStatus.OK)
+  delete(@Param('id') id: string) {
+    return this.benefitsService.delete(id);
+  }
 
   @ApiOkResponse({ type: PaginateAndFilterResponse })
   @UseGuards(AuthenticatedGuard)
@@ -36,7 +70,9 @@ export class BenefitsController {
   @UseGuards(AuthenticatedGuard)
   @Get('find/:id')
   getOne(@Param('id') id: string) {
-    return this.benefitsService.findOne(id);
+    return this.benefitsService.findOne({
+      where: { id: id },
+    });
   }
 
   @ApiOkResponse({ type: GetBestsellersResponse })

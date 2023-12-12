@@ -101,6 +101,53 @@ export class GetByNameRequest {
 
 export class FindOneResponse extends Benefit {}
 
+export class CreateBenefitResponse {
+  @ApiProperty({ example: '' })
+  id: string;
+
+  @ApiProperty({ example: '' })
+  benefit_name: string;
+
+  @ApiProperty({ example: '' })
+  benefit_type: string;
+
+  @ApiProperty({ example: '' })
+  benefit_category: string;
+
+  @ApiProperty({ example: '' })
+  benefit_description: string;
+
+  @ApiProperty({ example: '' })
+  price: number;
+
+  @ApiProperty({ example: '' })
+  vendor_code: string;
+
+  @ApiProperty({ example: '' })
+  benefit_image: string;
+
+  @ApiProperty({ example: '' })
+  in_stock: number;
+
+  @ApiProperty({ example: '' })
+  bestseller: boolean;
+
+  @ApiProperty({ example: '' })
+  new: boolean;
+
+  @ApiProperty({ example: '' })
+  popularity: number;
+
+  @ApiProperty({ example: '' })
+  info: string;
+
+  @ApiProperty({ example: '2023-09-12T12:23:33.502Z' })
+  updatedAt: string;
+
+  @ApiProperty({ example: '2023-09-17T17:23:32.502Z' })
+  createdAt: string;
+}
+
 export interface IBenefitQuery {
   limit: string;
   offset: string;

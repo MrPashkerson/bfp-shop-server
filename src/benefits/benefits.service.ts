@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Benefit } from './benefits.model';
 import { Op } from 'sequelize';
 import { IBenefitFilter, IBenefitQuery } from './types';
+import { CreateBenefitDto } from 'src/benefits/dto/create-benefit.dto';
+import { UpdateBenefitDto } from 'src/benefits/dto/update-benefit.dto';
 
 @Injectable()
 export class BenefitsService {
@@ -10,6 +12,90 @@ export class BenefitsService {
     @InjectModel(Benefit)
     private benefitModel: typeof Benefit,
   ) {}
+
+  async create(
+    createBenefitDto: CreateBenefitDto,
+  ): Promise<Benefit | { warningMessage: string }> {
+    const benefit = new Benefit();
+    console.log(createBenefitDto);
+
+    const existingByBenefitName = await this.findOne({
+      where: { benefit_name: createBenefitDto.benefitName },
+    });
+
+    const existingByVendorCode = await this.findOne({
+      where: { vendor_code: createBenefitDto.vendorCode },
+    });
+
+    if (existingByBenefitName) {
+      return {
+        warningMessage: 'Бенефит с таким названием уже существует',
+      };
+    }
+
+    if (existingByVendorCode) {
+      return {
+        warningMessage: 'Бенефит с таким артикулом уже существует',
+      };
+    }
+
+    benefit.benefit_name = createBenefitDto.benefitName;
+    benefit.benefit_type = createBenefitDto.benefitType;
+    benefit.benefit_category = createBenefitDto.benefitCategory;
+    benefit.benefit_description = createBenefitDto.benefitDescription;
+    benefit.price = createBenefitDto.price;
+    benefit.vendor_code = createBenefitDto.vendorCode;
+    benefit.benefit_image = createBenefitDto.benefitImage;
+    benefit.in_stock = createBenefitDto.inStock;
+    benefit.bestseller = createBenefitDto.bestseller;
+    benefit.new = createBenefitDto.new;
+    benefit.popularity = createBenefitDto.popularity;
+    benefit.info = createBenefitDto.info;
+
+    return benefit.save();
+  }
+
+  async update(
+    id: string,
+    updateBenefitDto: UpdateBenefitDto,
+  ): Promise<Benefit | { warningMessage: string }> {
+    console.log(updateBenefitDto);
+    const benefit = await this.findOne({ where: { id: id } });
+    if (!benefit) {
+      return { warningMessage: 'Бенефит не найден' };
+    }
+
+    benefit.benefit_name =
+      updateBenefitDto.benefit_name ?? benefit.benefit_name;
+    benefit.benefit_type =
+      updateBenefitDto.benefit_type ?? benefit.benefit_type;
+    benefit.benefit_category =
+      updateBenefitDto.benefit_category ?? benefit.benefit_category;
+    benefit.benefit_description =
+      updateBenefitDto.benefit_description ?? benefit.benefit_description;
+    benefit.price = updateBenefitDto.price ?? benefit.price;
+    benefit.vendor_code = updateBenefitDto.vendor_code ?? benefit.vendor_code;
+    benefit.benefit_image =
+      updateBenefitDto.benefit_image ?? benefit.benefit_image;
+    benefit.in_stock = updateBenefitDto.in_stock ?? benefit.in_stock;
+    benefit.bestseller = updateBenefitDto.bestseller ?? benefit.bestseller;
+    benefit.new = updateBenefitDto.new ?? benefit.new;
+    benefit.popularity = updateBenefitDto.popularity ?? benefit.popularity;
+    benefit.info = updateBenefitDto.info ?? benefit.info;
+
+    await benefit.save();
+    return benefit;
+  }
+
+  async delete(benefitId: string): Promise<{ message: string }> {
+    const benefit = await this.findOne({ where: { id: benefitId } });
+    if (!benefit) {
+      return { message: 'Бенефит не найден' };
+    }
+
+    await benefit.destroy();
+    return { message: 'Бенефит удалён' };
+  }
 
   async paginateAndFilter(
     query: IBenefitQuery,
@@ -68,10 +154,14 @@ export class BenefitsService {
     });
   }
 
-  async findOne(id: number | string): Promise<Benefit> {
-    return this.benefitModel.findOne({
-      where: { id },
-    });
+  async findOne(filter: {
+    where: {
+      id?: number | string;
+      benefit_name?: string;
+      vendor_code?: string;
+    };
+  }): Promise<Benefit> {
+    return this.benefitModel.findOne({ ...filter });
   }
 
   async findOneByName(benefit_name: string): Promise<Benefit> {
