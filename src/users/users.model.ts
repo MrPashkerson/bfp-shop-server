@@ -17,7 +17,6 @@ export class User extends Model {
   @Column
   password: string;
 
-  @Default('user')
   @Column
   role: string;
 }

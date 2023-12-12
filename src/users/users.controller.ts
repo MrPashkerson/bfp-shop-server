@@ -8,6 +8,7 @@ import {
   Get,
   Header,
   Body,
+  Query, Delete, Param, Put
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
@@ -19,8 +20,10 @@ import {
   LoginUserRequest,
   LoginUserResponse,
   LogoutUserResponse,
-  SignupResponse,
+  PaginateResponse,
+  SignupResponse
 } from './types';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -32,6 +35,15 @@ export class UsersController {
   @Header('Content-type', 'application/json')
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @ApiBody({ type: UpdateUserDto })
+  @ApiOkResponse({ description: 'Пользователь успешно обновлен' })
+  @Put('update/:id')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthenticatedGuard)
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
   @ApiBody({ type: LoginUserRequest })
@@ -48,6 +60,21 @@ export class UsersController {
   @UseGuards(AuthenticatedGuard)
   loginCheck(@Request() req) {
     return req.user;
+  }
+
+  @ApiOkResponse({ type: PaginateResponse })
+  @UseGuards(AuthenticatedGuard)
+  @Get()
+  paginateAndFilter(@Query() query) {
+    return this.usersService.paginate(query);
+  }
+
+  @ApiOkResponse({ description: 'Пользователь удален' })
+  @UseGuards(AuthenticatedGuard)
+  @Delete('delete/:id')
+  @HttpCode(HttpStatus.OK)
+  delete(@Param('id') id: string) {
+    return this.usersService.delete(id);
   }
 
   @ApiOkResponse({ type: LogoutUserResponse })

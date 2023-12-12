@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
+import { IUserQuery } from 'src/users/types';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -22,19 +24,51 @@ export class UsersService {
     return this.userModel.findOne({ ...filter });
   }
 
-  // Update
-  // async update(
-  //   updateUserDto: UpdateUserDto,
-  // ): Promise<User | { warningMessage: string }> {
-  //   const user = new User();
-  //   const existingById = await this.findOne({
-  //     where: { id: updateUserDto.id },
-  //   });
-  //
-  //   const hashedPassword = await bcrypt.hash(UpdateUserDto.password, 10);
-  //
-  //   return user.save();
-  // }
+  async paginate(query: IUserQuery): Promise<{ count: number; rows: User[] }> {
+    const limit = +query.limit;
+    const offset = +query.offset * 20;
+    console.log(query);
+
+    return this.userModel.findAndCountAll({
+      limit,
+      offset,
+      order: [['surname', 'ASC']],
+    });
+  }
+
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User | { warningMessage: string }> {
+    const user = await this.findOne({ where: { id: id } });
+    if (!user) {
+      return { warningMessage: 'Пользователь не найден' };
+    }
+
+    user.email = updateUserDto.email ?? user.email;
+    user.name = updateUserDto.name ?? user.name;
+    user.surname = updateUserDto.surname ?? user.surname;
+
+    if (updateUserDto.password) {
+      user.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
+
+    user.hireDate = updateUserDto.hireDate ?? user.hireDate;
+    user.role = updateUserDto.role ?? user.role;
+
+    await user.save();
+    return user;
+  }
+
+  async delete(userId: string): Promise<{ message: string }> {
+    const user = await this.findOne({ where: { id: userId } });
+    if (!user) {
+      return { message: 'Пользователь не найден' };
+    }
+
+    await user.destroy();
+    return { message: 'Пользователь удален' };
+  }
 
   async create(
     createUserDto: CreateUserDto,
@@ -75,6 +109,7 @@ export class UsersService {
     user.surname = createUserDto.surname;
     user.password = hashedPassword;
     user.hireDate = createUserDto.hireDate;
+    user.role = 'user';
 
     return user.save();
   }

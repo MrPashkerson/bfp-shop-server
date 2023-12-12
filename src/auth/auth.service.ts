@@ -26,6 +26,7 @@ export class AuthService {
         name: user.name,
         surname: user.surname,
         hireDate: user.hireDate,
+        role: user.role,
       };
     }
 

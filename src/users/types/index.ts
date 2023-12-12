@@ -16,6 +16,7 @@ export class LoginUserResponse {
       name: 'Pavel',
       surname: 'Homan',
       hireDate: '2023-09-11T21:53:58.386Z',
+      role: 'user',
     },
   })
   user: {
@@ -24,6 +25,7 @@ export class LoginUserResponse {
     name: string;
     surname: string;
     hireDate: string;
+    role: string;
   };
   @ApiProperty({ example: 'Logged in' })
   msg: string;
@@ -49,12 +51,12 @@ export class LoginCheckResponse {
 
   @ApiProperty({ example: '2023-09-11T21:53:58.386Z' })
   hireDate: string;
+
+  @ApiProperty({ example: 'user' })
+  role: string;
 }
 
 export class SignupResponse {
-  @ApiProperty({ example: 'user' })
-  role: string;
-
   @ApiProperty({ example: 1 })
   id: number;
 
@@ -75,9 +77,25 @@ export class SignupResponse {
   @ApiProperty({ example: '2023-09-11T21:53:58.386Z' })
   hireDate: string;
 
+  @ApiProperty({ example: 'user' })
+  role: string;
+
   @ApiProperty({ example: '2023-09-12T12:23:33.502Z' })
   updatedAt: string;
 
   @ApiProperty({ example: '2023-09-17T17:23:32.502Z' })
   createdAt: string;
+}
+
+export class PaginateResponse {
+  @ApiProperty({ example: 10 })
+  count: number;
+
+  @ApiProperty({ type: LoginCheckResponse, isArray: true })
+  rows: LoginCheckResponse;
+}
+
+export interface IUserQuery {
+  limit: string;
+  offset: string;
 }
