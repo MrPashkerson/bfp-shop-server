@@ -37,7 +37,7 @@ export class BenefitsController {
   @Post('/create')
   @HttpCode(HttpStatus.CREATED)
   @Header('Content-type', 'application/json')
-  // @UseGuards(AuthenticatedGuard)
+  @UseGuards(AuthenticatedGuard)
   createBenefit(@Body() createBenefitDto: CreateBenefitDto) {
     return this.benefitsService.create(createBenefitDto);
   }
