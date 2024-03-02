@@ -10,10 +10,10 @@ import { User } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
 
 const mockedUser = {
-  name: 'Pavel',
-  surname: 'Homan',
+  name: 'test',
+  surname: 'test',
   hireDate: '2023-09-11T21:53:58.386Z',
-  email: 'example@email.com',
+  email: 'test@email.com',
   password: 'password123',
   role: 'user',
 };
@@ -61,7 +61,7 @@ describe('Auth Service', () => {
     await User.destroy({ where: { email: mockedUser.email } });
   });
 
-  it('should login user', async () => {
+  it('Test validateUser Method', async () => {
     const user = await authService.validateUser(
       mockedUser.email,
       mockedUser.password,

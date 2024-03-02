@@ -12,10 +12,10 @@ import { User } from 'src/users/users.model';
 import { AuthModule } from 'src/auth/auth.module';
 
 const mockedUser = {
-  name: 'Pavel',
-  surname: 'Homan',
+  name: 'test',
+  surname: 'test',
   hireDate: '2023-09-11T21:53:58.386Z',
-  email: 'example@email.com',
+  email: 'test@email.com',
   password: 'password123',
   role: 'user',
 };
@@ -70,7 +70,7 @@ describe('Auth Controller', () => {
     await User.destroy({ where: { email: mockedUser.email } });
   });
 
-  it('should login user', async () => {
+  it('Test Rest API User login', async () => {
     const response = await request(app.getHttpServer())
       .post('/users/login')
       .send({ email: mockedUser.email, password: mockedUser.password });
@@ -79,7 +79,7 @@ describe('Auth Controller', () => {
     expect(response.body.msg).toBe('Logged in');
   });
 
-  it('should login check', async () => {
+  it('Test Rest API User login-check', async () => {
     const login = await request(app.getHttpServer())
       .post('/users/login')
       .send({ email: mockedUser.email, password: mockedUser.password });
@@ -91,7 +91,7 @@ describe('Auth Controller', () => {
     expect(loginCheck.body.email).toBe(mockedUser.email);
   });
 
-  it('should logout', async () => {
+  it('Test Rest API User logout', async () => {
     const response = await request(app.getHttpServer()).get('/users/logout');
 
     expect(response.body.msg).toBe('Session has ended');
