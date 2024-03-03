@@ -196,13 +196,14 @@ describe('Shopping Cart Service', () => {
 
     await shoppingCartService.add({
       email: mockedUser.email,
+      userId: user.id,
       benefitId: 1,
     });
 
     await shoppingCartService.remove(1);
 
     const cart = await shoppingCartService.findAll(user.id);
-
+    console.log(cart);
     expect(cart.find((item) => item.benefitId === 1)).toBeUndefined();
   });
 
