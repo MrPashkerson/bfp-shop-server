@@ -8,7 +8,10 @@ import {
   Get,
   Header,
   Body,
-  Query, Delete, Param, Put
+  Query,
+  Delete,
+  Param,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { LocalAuthGuard } from '../auth/local.auth.guard';
@@ -16,6 +19,7 @@ import { AuthenticatedGuard } from '../auth/authenticated.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiBody, ApiOkResponse } from '@nestjs/swagger';
 import {
+  FindOneResponse,
   LoginCheckResponse,
   LoginUserRequest,
   LoginUserResponse,
@@ -67,6 +71,15 @@ export class UsersController {
   @Get()
   paginateAndFilter(@Query() query) {
     return this.usersService.paginate(query);
+  }
+
+  @ApiOkResponse({ type: FindOneResponse })
+  @UseGuards(AuthenticatedGuard)
+  @Get('find/:id')
+  getOne(@Param('id') id: string) {
+    return this.usersService.findOne({
+      where: { id: id },
+    });
   }
 
   @ApiOkResponse({ description: 'Пользователь удален' })

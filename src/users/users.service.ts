@@ -15,7 +15,7 @@ export class UsersService {
 
   findOne(filter: {
     where: {
-      id?: string;
+      id?: number | string;
       email?: string;
       name?: string;
       surname?: string;

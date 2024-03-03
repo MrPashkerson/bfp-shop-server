@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/users/users.model';
 
 export class LoginUserRequest {
   @ApiProperty({ example: 'example@email.com' })
@@ -94,6 +95,8 @@ export class PaginateResponse {
   @ApiProperty({ type: LoginCheckResponse, isArray: true })
   rows: LoginCheckResponse;
 }
+
+export class FindOneResponse extends User {}
 
 export interface IUserQuery {
   limit: string;
