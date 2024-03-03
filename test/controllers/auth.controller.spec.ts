@@ -6,10 +6,10 @@ import * as session from 'express-session';
 import * as passport from 'passport';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Test, TestingModule } from '@nestjs/testing';
-import { databaseConfig } from 'src/config/configuration';
-import { SequelizeConfigService } from 'src/config/sequelizeConfig.service';
-import { User } from 'src/users/users.model';
-import { AuthModule } from 'src/auth/auth.module';
+import { databaseConfig } from '../../src/config/configuration';
+import { SequelizeConfigService } from '../../src/config/sequelizeConfig.service';
+import { User } from '../../src/users/users.model';
+import { AuthModule } from '../../src/auth/auth.module';
 
 const mockedUser = {
   name: 'test',
@@ -63,7 +63,7 @@ describe('Auth Controller', () => {
     user.hireDate = new Date(mockedUser.hireDate);
     user.role = mockedUser.role;
 
-    return user.save();
+    return await user.save();
   });
 
   afterEach(async () => {

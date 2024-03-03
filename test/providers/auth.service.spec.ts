@@ -3,17 +3,17 @@ import { AuthService } from 'src/auth/auth.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { SequelizeConfigService } from 'src/config/sequelizeConfig.service';
-import { databaseConfig } from 'src/config/configuration';
-import { AuthModule } from 'src/auth/auth.module';
-import { User } from 'src/users/users.model';
+import { SequelizeConfigService } from '../../src/config/sequelizeConfig.service';
+import { databaseConfig } from '../../src/config/configuration';
+import { AuthModule } from '../../src/auth/auth.module';
+import { User } from '../../src/users/users.model';
 import * as bcrypt from 'bcrypt';
 
 const mockedUser = {
-  name: 'test',
-  surname: 'test',
+  name: 'test10',
+  surname: 'test10',
   hireDate: '2023-09-11T21:53:58.386Z',
-  email: 'test@email.com',
+  email: 'test10@email.com',
   password: 'password123',
   role: 'user',
 };
