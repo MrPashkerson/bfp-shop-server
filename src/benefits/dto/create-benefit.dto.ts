@@ -4,19 +4,19 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateBenefitDto {
   @ApiProperty({ example: 'benefit' })
   @IsNotEmpty()
-  readonly benefitName: string;
+  readonly benefit_name: string;
 
   @ApiProperty({ example: 'type' })
   @IsNotEmpty()
-  readonly benefitType: string;
+  readonly benefit_type: string;
 
   @ApiProperty({ example: 'category' })
   @IsNotEmpty()
-  readonly benefitCategory: string;
+  readonly benefit_category: string;
 
   @ApiProperty({ example: 'description' })
   @IsNotEmpty()
-  readonly benefitDescription: string;
+  readonly benefit_description: string;
 
   @ApiProperty({ example: 20 })
   @IsNotEmpty()
@@ -24,15 +24,15 @@ export class CreateBenefitDto {
 
   @ApiProperty({ example: 'code' })
   @IsNotEmpty()
-  readonly vendorCode: string;
+  readonly vendor_code: string;
 
   @ApiProperty({ example: 'image' })
   @IsNotEmpty()
-  readonly benefitImage: string;
+  readonly benefit_image: string;
 
   @ApiProperty({ example: 10 })
   @IsNotEmpty()
-  readonly inStock: number;
+  readonly in_stock: number;
 
   @ApiProperty({ example: true })
   @IsNotEmpty()

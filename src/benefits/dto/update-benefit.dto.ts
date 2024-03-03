@@ -2,55 +2,55 @@ import { IsOptional, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateBenefitDto {
-  @ApiProperty({ example: '123', description: 'ID бенефита' })
+  @ApiProperty({ example: 123, description: 'ID бенефита' })
   @IsNotEmpty()
-  readonly id: string;
+  readonly id: number;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly benefit_name: string;
+  readonly benefit_name?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly benefit_type: string;
+  readonly benefit_type?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly benefit_category: string;
+  readonly benefit_category?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly benefit_description: string;
+  readonly benefit_description?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly price: number;
+  readonly price?: number;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly vendor_code: string;
+  readonly vendor_code?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly benefit_image: string;
+  readonly benefit_image?: string;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly in_stock: number;
+  readonly in_stock?: number;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly bestseller: boolean;
+  readonly bestseller?: boolean;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly new: boolean;
+  readonly new?: boolean;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly popularity: number;
+  readonly popularity?: number;
 
   @ApiProperty({ example: '', required: false })
   @IsOptional()
-  readonly info: string;
+  readonly info?: string;
 }

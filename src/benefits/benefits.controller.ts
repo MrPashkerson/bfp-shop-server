@@ -47,7 +47,7 @@ export class BenefitsController {
   @Put('update/:id')
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthenticatedGuard)
-  update(@Param('id') id: string, @Body() updateBenefitDto: UpdateBenefitDto) {
+  update(@Param('id') id: number, @Body() updateBenefitDto: UpdateBenefitDto) {
     return this.benefitsService.update(id, updateBenefitDto);
   }
 

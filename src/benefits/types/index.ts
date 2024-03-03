@@ -151,12 +151,12 @@ export class CreateBenefitResponse {
 export interface IBenefitQuery {
   limit: string;
   offset: string;
-  priceFrom: string | undefined;
-  priceTo: string | undefined;
-  benefit_category: string | undefined;
-  benefit_type: string | undefined;
-  benefit_stock: string | undefined;
-  first: string | undefined;
+  priceFrom?: string | undefined;
+  priceTo?: string | undefined;
+  benefit_category?: string | undefined;
+  benefit_type?: string | undefined;
+  benefit_stock?: string | undefined;
+  first?: string | undefined;
 }
 
 export interface IBenefitFilter {

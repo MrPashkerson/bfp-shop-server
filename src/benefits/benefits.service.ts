@@ -20,11 +20,11 @@ export class BenefitsService {
     console.log(createBenefitDto);
 
     const existingByBenefitName = await this.findOne({
-      where: { benefit_name: createBenefitDto.benefitName },
+      where: { benefit_name: createBenefitDto.benefit_name },
     });
 
     const existingByVendorCode = await this.findOne({
-      where: { vendor_code: createBenefitDto.vendorCode },
+      where: { vendor_code: createBenefitDto.vendor_code },
     });
 
     if (existingByBenefitName) {
@@ -39,14 +39,14 @@ export class BenefitsService {
       };
     }
 
-    benefit.benefit_name = createBenefitDto.benefitName;
-    benefit.benefit_type = createBenefitDto.benefitType;
-    benefit.benefit_category = createBenefitDto.benefitCategory;
-    benefit.benefit_description = createBenefitDto.benefitDescription;
+    benefit.benefit_name = createBenefitDto.benefit_name;
+    benefit.benefit_type = createBenefitDto.benefit_type;
+    benefit.benefit_category = createBenefitDto.benefit_category;
+    benefit.benefit_description = createBenefitDto.benefit_description;
     benefit.price = createBenefitDto.price;
-    benefit.vendor_code = createBenefitDto.vendorCode;
-    benefit.benefit_image = createBenefitDto.benefitImage;
-    benefit.in_stock = createBenefitDto.inStock;
+    benefit.vendor_code = createBenefitDto.vendor_code;
+    benefit.benefit_image = createBenefitDto.benefit_image;
+    benefit.in_stock = createBenefitDto.in_stock;
     benefit.bestseller = createBenefitDto.bestseller;
     benefit.new = createBenefitDto.new;
     benefit.popularity = createBenefitDto.popularity;
@@ -56,7 +56,7 @@ export class BenefitsService {
   }
 
   async update(
-    id: string,
+    id: number,
     updateBenefitDto: UpdateBenefitDto,
   ): Promise<Benefit | { warningMessage: string }> {
     console.log(updateBenefitDto);
